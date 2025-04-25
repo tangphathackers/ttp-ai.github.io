@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tăng Phát</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin: 0;
+      animation: fadeInDown 1s ease-out;
+    }
+    p {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+      animation: fadeInUp 1s ease-out;
+    }
+    .socials a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: white;
+      font-size: 1.5rem;
+      transition: transform 0.3s;
+    }
+    .socials a:hover {
+      transform: scale(1.2);
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Chào mừng đến với Tăng Phát</h1>
+  <p>Đam mê công nghệ - Sáng tạo không ngừng</p>
+  <div class="socials">
+    <a href="https://github.com/your-username" target="_blank">GitHub</a>
+    <a href="https://facebook.com/your-profile" target="_blank">Facebook</a>
+    <a href="mailto:your@email.com">Email</a>
+  </div>
+</body>
+</html>
