@@ -1,248 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kzuyoo-stuff</title>
-  <style>
-    body {
-      background-color: #1c1c1e;
-      color: #e5e5ea;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px;
-      font-size: 20px;
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      margin: 0 auto 16px;
-      gap: 12px;
-    }
-    nav a {
-      padding: 8px 16px;
-      border-radius: 20px;
-      background-color: #2c2c2e;
-      color: #0a84ff;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 14px;
-      box-shadow: inset 0 0 0 1px #3a3a3c;
-      cursor: pointer;
-    }
-    .container {
-      padding: 0 16px;
-    }
-    .section {
-      display: none;
-    }
-    .active {
-      display: block;
-    }
-    .install-box, .module, .support-box {
-      background-color: #2c2c2e;
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 16px;
-      box-shadow: inset 0 0 0 1px #3a3a3c;
-    }
-    .install-box {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .install-box svg {
-      width: 20px;
-      height: 20px;
-      margin-right: 8px;
-      fill: #0a84ff;
-    }
-    .install-link, .module a {
-      color: #0a84ff;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-    }
-    .module h2 {
-      margin: 0 0 8px 0;
-      font-size: 17px;
-      font-weight: 500;
-    }
-    .module p {
-      font-size: 14px;
-      color: #a1a1a3;
-      margin-bottom: 12px;
-    }
-    .support-box h3 {
-      margin-bottom: 8px;
-      font-size: 16px;
-    }
-    .support-box p {
-      font-size: 14px;
-      color: #a1a1a3;
-    }
-    .progress-bar {
-      display: flex;
-      height: 6px;
-      border-radius: 6px;
-      overflow: hidden;
-      margin: 12px 0 18px;
-    }
-    .progress-bar span {
-      flex: 1;
-    }
-    .social-link {
-      display: block;
-      color: #0a84ff;
-      text-decoration: none;
-      margin-bottom: 6px;
-      font-weight: 500;
-    }
-    footer {
-      text-align: center;
-      padding: 16px;
-      font-size: 13px;
-      color: #8e8e93;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>TTP-AI: MECHA INTERFACE v4.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="script.js" defer></script>
 </head>
 <body>
-  <header>
-    <div> Celestial - Lab </div>
-    <img src="Kazuyoo-stuff/kazuyoo-stuff.github.io/37652415f7e1a3ea29b9be48f9d9bf5ae7545af6/IMG/klipartz.com.png" width="24" />
-  </header>
-  <nav>
-    <a onclick="showSection('home')">Home</a>
-    <a onclick="showSection('modules')">Modules</a>
-    <a onclick="showSection('support')">Support</a>
-  </nav>
-  <div class="container">
-    <!-- Home Section -->
-    <div id="home" class="section active">
-    <div class="support-box">
-    <div style="text-align: center; margin-top: 20px;">
-      <img src="Kazuyoo-stuff/kazuyoo-stuff.github.io/740491a80e10690938b3f4c607ae68e9b94bd389/IMG/IMG_20250525_094654.jpg" alt="Celestial Thumbnail" style="max-width: 90%; width: 700px; height: auto; border-radius: 12px;">
+    <!-- Background Elements -->
+    <div class="starfield-background"></div>
+    <canvas id="particleCanvas"></canvas>
+    <div id="digitalRainContainer"></div>
+    <div id="output" class="toast"></div>
+
+    <!-- Main Container with 3D perspective -->
+    <div class="gundam-hangar">
+        <main class="hangar-grid">
+            <!-- Left Column -->
+            <div class="hangar-column left">
+                <div class="panel">
+                    <h2 class="panel-title" data-lang-key="liveSystemStats">SYSTEM TELEMETRY</h2>
+                    <div class="stats-grid">
+                        <div id="batteryInfo" class="stat-item">...</div>
+                        <div id="tempInfo" class="stat-item">...</div>
+                    </div>
+                    <div class="cpu-stats-container">
+                        <h3 data-lang-key="cpuCurrentFreq">CPU Core Activity</h3>
+                        <div id="cpuCoreGraph" class="cpu-core-graph"></div>
+                    </div>
+                </div>
+                 <div class="panel">
+                    <h2 class="panel-title" data-lang-key="deviceProfile">DEVICE PROFILE</h2>
+                    <div id="keyInfo" class="key-info"></div>
+                    <div id="deviceInfo" class="device-info">Loading...</div>
+                </div>
+                <div class="panel">
+                    <h2 class="panel-title" data-lang-key="commandHistoryLog">COMMAND LOG</h2>
+                    <div id="commandLog" class="command-log">
+                        <p data-lang-key="noCommandsYet">No commands executed.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Core -->
+            <div class="reactor-core">
+                <div class="core-hexagon-bg layer-1"></div>
+                <div class="core-hexagon-bg layer-2"></div>
+                <div class="core-hexagon-bg layer-3"></div>
+                <div class="core-hexagon-content">
+                    <div class="ai-core-visualizer">
+                        <div class="ai-core-ring"></div>
+                        <div class="ai-core-ring"></div>
+                        <div class="ai-core-ring"></div>
+                    </div>
+                    <h2 class="core-title" data-lang-key="aiCommandLog">AI DIAGNOSTIC</h2>
+                    <div id="aiDiagnosticCenter" class="ai-diagnostic-center">
+                        <p id="aiInitialMessage" data-lang-key="diagnosticIntro">Press "START" for system analysis.</p>
+                        <div id="aiSuggestionContent" class="ai-suggestion" style="display:none;"></div>
+                        <div id="diagnostic-actions">
+                            <button id="runDiagnosticsBtn" class="button-hex" data-lang-key="diagnosticStart">
+                                <span>START</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="hangar-column right">
+                <div class="panel">
+                    <h2 class="panel-title" data-lang-key="serverEffective">OPTIMIZATION MATRIX</h2>
+                    <div class="button-grid">
+                        <button id="ttp-giamlag" class="button" data-lang-key="reduceLag"></button>
+                        <button id="ttp-boost" class="button" data-lang-key="boostPerformance"></button>
+                        <button id="ttp-muot" class="button" data-lang-key="smoothSystem"></button>
+                        <button id="ttp-ram" class="button" data-lang-key="betterMultitasking"></button>
+                    </div>
+                </div>
+                <div class="panel">
+                     <h2 class="panel-title" data-lang-key="deviceCalibration">DEVICE CALIBRATION</h2>
+                     <div class="button-grid">
+                        <button id="ttp-mediumtouch" class="button" data-lang-key="mediumTouch"></button>
+                        <button id="ttp-hightouch" class="button" data-lang-key="highTouch"></button>
+                        <button id="ttp-lowdpi" class="button" data-lang-key="decreaseDPI"></button>
+                        <button id="ttp-highdpi" class="button" data-lang-key="increaseDPI"></button>
+                        <button id="ttp-cuongche" class="button" data-lang-key="cuongche"></button>
+                        <button id="ttp-fps90" class="button" data-lang-key="fps90"></button>
+                        <button id="ttp-fps120" class="button" data-lang-key="fps120"></button>
+                        <button id="ttp-gamenhetam" class="button" data-lang-key="gamenhetam"></button>
+                        <button id="ttp-gameboc" class="button" data-lang-key="gameboc"></button>
+                     </div>
+                </div>
+                 <div class="panel">
+                    <h2 class="panel-title" data-lang-key="recoveryEffective">RESTORE PROTOCOLS</h2>
+                    <div class="button-grid-small">
+                        <button id="ttp-rtouch" class="button" data-lang-key="restoreTouch"></button>
+                        <button id="ttp-rdpi" class="button" data-lang-key="restoreDPI"></button>
+                        <button id="ttp-rram" class="button" data-lang-key="restoreRAM"></button>
+                        <button id="ttp-resetall" class="button button-danger" data-lang-key="restoreAll"></button>
+                        <button id="ttp-reboot" class="button button-danger" data-lang-key="rebootDevice"></button>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
-    <h3>👤 Introduction</h3>
-    <p> Hi everyone! 👋
-         How are you? Nice to meet you, My name is Diki Nur Rohmat. I live in Kebumen, Central Java, Indonesia. just an ordinary high school student..</p>
-         <p>An independent developer who loves to explore the Android system — from light tweaks, performance enhancements, to advanced system experiments..</p>
-      <div class="progress-bar">
-        <span style="background-color:#0a84ff"></span>
-        <span style="background-color:#ff3b30"></span>
-        <span style="background-color:#af521c"></span>
-        <span style="background-color:#34c759"></span>
-      </div>
-      <h3>♻️ About Project</h3>
-      <p> "Celestial Lab is where I share various Android optimization experiments, tweaks, and lightweight modules for everyone. All my projects are designed for efficiency, stability, and full control.</p>
-      <p>Through Celestial Lab, I share various projects and tools that I have developed myself to improve performance, efficiency, and user experience on various Android devices."</p>
-      <div class="progress-bar">
-        <span style="background-color:#0a84ff"></span>
-        <span style="background-color:#ff3b30"></span>
-        <span style="background-color:#af521c"></span>
-        <span style="background-color:#34c759"></span>
-      </div>
-     <h3>📔 My Social Media</h3>
-          <a class="social-link" href="https://youtube.com/@kazuyooopensources" target="_blank">- YouTube</a>
-          <a class="social-link" href="https://t.me/KzyoCh" target="_blank">- Telegram CH</a>
-          <a class="social-link" href="https://t.me/KzyoDisc" target="_blank">- Telegram Disc</a>
-          <a class="social-link" href="http://tiktok.com/@dikicl26" target="_blank">- TikTok</a>
-          <a class="social-link" href="https://www.instagram.com/dkinrhmt" target="_blank">- Instagram</a>
-      <h3 style="text-align: center;">Thanks for visit and bye-bye..</h3>
-        </div>
-       </div>
-    <!-- Modules Section -->
-    <div id="modules" class="section">
-<div class="module">
-  <h2> Celestial-Game-Opt 🕊️ | 1.7 </h2>
-  <p>Tweaks & improvements for better gaming performance.</p>
-  <a href="https://sfl.gl/NdVxBv4Z" download>Download</a>
-  <a href="https://github.com/Kazuyoo-stuff/Celestial-Game-Opt/" target="_blank">Github-repo</a>
-</div>
-<div class="module">
-  <h2> Celestial-Flinger-Flux ☣️ | 1.0 </h2>
-  <p>Improve display smoothness and responsiveness.</p>
-  <a href="https://sfl.gl/oTC56" download>Download</a>
-  <a href="-.html" target="_blank">Github-repo</a>
-</div>
-<div class="module">
-  <h2> Celestial-Disable-Log 🐦 | 1.2 </h2>
-  <p>Minimize Tracking / Statistics Activity.</p>
-  <a href="https://sfl.gl/hMrw60ku" download>Download</a>
-  <a href="-.html" target="_blank">Github-repo</a>
-</div>
-<div class="module">
-  <h2> Celestial-Network-Opt 🐬 | 1.1 </h2>
-  <p>Increase Network Speed Data or Wifi.</p>
-  <a href="https://sfl.gl/FmLdM" download>Download</a>
-  <a href="-.html" target="_blank">Github-repo</a>
-</div>
-<div class="module">
-  <h2> Celestial-Render-FlowX 👾 | 1.3S </h2>
-  <p>Improved Rendering Speed, Optimization Graphics Performance and Other.</p>
-  <a href="https://sfl.gl/bMolvMP5" download>Download</a>
-  <a href="https://github.com/Kazuyoo-stuff/Celestial-Render-FlowX" target="_blank">Github-repo</a>
-</div>
-<div class="module">
-  <h2> Celestial-Tweaks 🍃 | 2.0L </h2>
-  <p>Contains various Tweaks and Optimizations aimed at Improving the overall user Experience.</p>
-  <a href="https://sfl.gl/UkH8Ki" download>Download</a>
-  <a href="https://github.com/Kazuyoo-stuff/Celestial-Tweaks" target="_blank">Github-repo</a>
-</div>
-<div class="module">
-  <h2>Celestial-Thermal🌡️ | 1.2</h2>
-  <p>Disables the temperature regulation system on the device.</p>
-  <a href="https://sfl.gl/bqPgdbw" download>Download</a>
-  <a href="https://github.com/Kazuyoo-stuff/Celestial-Thermals" target="_blank">Github-repo</a>
-</div>
-<div class="module">
-  <h2>Celestial-Kernel-Tweaks 🛸 | 1.3T</h2>
-  <p>Allows to Improve device Performance and efficiency by Adjusting Kernel Settings.</p>
-  <a href="https://sfl.gl/d30Cv6r" download>Download</a>
-  <a href="https://github.com/Kazuyoo-stuff/Celestial-Kernel-Tweaks" target="_blank">Github-repo</a>
-</div>
-<div class="module">
-  <h2>Smooth-User-Interface ❄️ | EOL</h2>
-  <p>Improve UI responsiveness or smoothness.</p>
-  <a href="https://sfl.gl/vo29MN" download>Download</a>
-  <a href="-.html" target="_blank">Github-repo</a>
-</div>
-</div>
-    <!-- Support Section -->
-    <div id="support" class="section">
-    <div class="support-box">
-      <h3>Support Me</h3>
-      <p>This project was created by Kazuyoo. If you'd like to support my work, you can send a donation through the available platforms below. Every contribution helps me continue developing and improving these projects.</p>
-      <div class="progress-bar">
-        <span style="background-color:#0a84ff"></span>
-        <span style="background-color:#ff3b30"></span>
-        <span style="background-color:#af521c"></span>
-        <span style="background-color:#34c759"></span>
-      </div>
-          <a class="social-link" href="https://sociabuzz.com/dikyganteng_/tribe" target="_blank">SociaBuzz</a>
-        <h3>Need Help?</h3>
-        <p>If you encounter issues, contact us via Telegram or check our GitHub repositories for documentation.</p>
-      <div class="progress-bar">
-        <span style="background-color:#0a84ff"></span>
-        <span style="background-color:#ff3b30"></span>
-        <span style="background-color:#af521c"></span>
-        <span style="background-color:#34c759"></span>
-      </div>
-        <a class="social-link" href="https://t.me/Kzuyoo" target="_blank">t.me/Kzuyoo</a>
-        <a class="social-link" href="https://github.com/Kazuyoo-stuff" target="_blank">Kazuyoo-stuff</a>
-      </div>
-    </div>
-  <footer>&copy; 2025 Project Celestial Lab — by Kazuyoo</footer>
-  <script>
-    function showSection(id) {
-      document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
-  </script>
-<center><font size="2">This is the free demo result. For a full version of this website, please go to  <a href="https://www6.waybackmachinedownloader.com/website-downloader-online/scrape-all-files/">Website Downloader</a></font></center></body>
+</body>
 </html>
